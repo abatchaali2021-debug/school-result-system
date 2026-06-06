@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="card">
+    <div style="text-align:center; margin-bottom:20px;">
+        <h2>🏫 School Result System</h2>
+        <h3>Student Report Card</h3>
+        <hr>
+    </div>
+
+    <!-- Student Details -->
+    <div style="display:grid;
+                grid-template-columns: 1fr 1fr;
+                gap:10px;
+                margin-bottom:20px;">
+        <div>
+            <p><strong>Name:</strong>
+                {{ student.name }}</p>
+            <p><strong>Class:</strong>
+                {{ student.student_class }}</p>
+        </div>
+        <div>
+            <p><strong>Age:</strong>
+                {{ student.age }}</p>
+            <p><strong>Gender:</strong>
+                {{ student.gender }}</p>
+        </div>
+    </div>
+
+    <!-- Results Table -->
+    {% if results %}
+    <table>
+        <tr>
+            <th>Subject</th>
+            <th>Score</th>
+            <th>Grade</th>
+            <th>Term</th>
+            <th>Year</th>
+            <th>Remark</th>
+        </tr>
+        {% for result in results %}
+        <tr>
+            <td>{{ result.subject.name }}</td>
+            <td>{{ result.score }}</td>
+            <td class="grade-{{ result.grade }}">
+                {{ result.grade }}
+            </td>
+            <td>{{ result.term }}</td>
+            <td>{{ result.year }}</td>
+            <td>
+                {% if result.grade == 'A' %}
+                    Excellent
+                {% elif result.grade == 'B' %}
+                    Good
+                {% elif result.grade == 'C' %}
+                    Average
+                {% elif result.grade == 'D' %}
+                    Pass
+                {% else %}
+                    Fail
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <!-- Summary -->
+    <div style="margin-top:20px;
+                padding:15px;
+                background:#f9f9f9;
+                border-radius:5px;">
+        <p><strong>Total Score:</strong>
+            {{ results|sum(attribute='score') }}</p>
+        <p><strong>Average Score:</strong>
+            {{ "%.1f"|format(average) }}</p>
+        <p><strong>Overall Grade:</strong>
+            <span class="grade-{{ overall_grade }}">
+                {{ overall_grade }}
+            </span>
+        </p>
+        <p><strong>Overall Remark:</strong>
+            {% if overall_grade == 'A' %}
+                Excellent Performance! 🌟
+            {% elif overall_grade == 'B' %}
+                Good Performance! 👍
+            {% elif overall_grade == 'C' %}
+                Average Performance
+            {% elif overall_grade == 'D' %}
+                Needs Improvement
+            {% else %}
+                Poor Performance ❌
+            {% endif %}
+        </p>
+    </div>
+
+    {% else %}
+        <p>No results found for this student!</p>
+    {% endif %}
+
+    <br>
+    <div style="text-align:center;">
+        <a href="/students" class="btn">
+            ⬅ Back to Students
+        </a>
+        <button class="btn btn-green"
+                onclick="window.print()"
+                style="margin-left:10px;">
+            🖨 Print Report Card
+        </button>
+    </div>
+</div>
+
+{% endblock %}
