@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>📝 Results</h2>
+
+<div class="card">
+    <h3>Enter New Result</h3>
+    <form method="POST">
+        <label>Select Student:</label>
+        <select name="student_id" required>
+            <option value="">-- Select Student --</option>
+            {% for student in students %}
+                <option value="{{ student.id }}">
+                    {{ student.name }} - {{ student.student_class }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <label>Select Subject:</label>
+        <select name="subject_id" required>
+            <option value="">-- Select Subject --</option>
+            {% for subject in subjects %}
+                <option value="{{ subject.id }}">
+                    {{ subject.name }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <label>Score (0-100):</label>
+        <input type="number" name="score"
+               placeholder="e.g. 75"
+               min="0" max="100" required>
+
+        <label>Term:</label>
+        <select name="term" required>
+            <option value="">-- Select Term --</option>
+            <option value="First Term">First Term</option>
+            <option value="Second Term">Second Term</option>
+            <option value="Third Term">Third Term</option>
+        </select>
+
+        <label>Year:</label>
+        <input type="text" name="year"
+               placeholder="e.g. 2024/2025"
+               required>
+
+        <button class="btn btn-green"
+                type="submit"
+                style="width:100%; padding:12px;">
+            📝 Save Result
+        </button>
+    </form>
+</div>
+
+<div class="card">
+    <h3>All Results</h3>
+    {% if results %}
+    <table>
+        <tr>
+            <th>Student</th>
+            <th>Subject</th>
+            <th>Score</th>
+            <th>Grade</th>
+            <th>Term</th>
+            <th>Year</th>
+        </tr>
+        {% for result in results %}
+        <tr>
+            <td>{{ result.student.name }}</td>
+            <td>{{ result.subject.name }}</td>
+            <td>{{ result.score }}</td>
+            <td class="grade-{{ result.grade }}">
+                {{ result.grade }}
+            </td>
+            <td>{{ result.term }}</td>
+            <td>{{ result.year }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+        <p>No results yet! Enter one above.</p>
+    {% endif %}
+</div>
+
+{% endblock %}
