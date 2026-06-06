@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>📚 Subjects</h2>
+
+<div class="card" style="max-width:500px;">
+    <h3>Add New Subject</h3>
+    <form method="POST">
+        <label>Subject Name:</label>
+        <input type="text" name="name"
+               placeholder="e.g. Mathematics"
+               required>
+        <button class="btn btn-green"
+                type="submit">
+            ➕ Add Subject
+        </button>
+    </form>
+</div>
+
+<div class="card">
+    <h3>All Subjects</h3>
+    {% if subjects %}
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Subject Name</th>
+            <th>Action</th>
+        </tr>
+        {% for subject in subjects %}
+        <tr>
+            <td>{{ subject.id }}</td>
+            <td>{{ subject.name }}</td>
+            <td>
+                <a href="/delete-subject/{{ subject.id }}"
+                   class="btn btn-red"
+                   style="padding:5px 10px;"
+                   onclick="return confirm('Are you sure?');">
+                   🗑 Delete
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+        <p>No subjects yet! Add one above.</p>
+    {% endif %}
+</div>
+
+{% endblock %}
