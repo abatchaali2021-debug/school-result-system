@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="card" style="max-width:500px; margin:0 auto;">
+    <h2>➕ Add New Student</h2>
+
+    <form method="POST">
+        <label>Full Name:</label>
+        <input type="text" name="name"
+               placeholder="e.g. Ali Abatcha"
+               required>
+
+        <label>Class:</label>
+        <select name="student_class" required>
+            <option value="">-- Select Class --</option>
+            <option value="JSS1">JSS 1</option>
+            <option value="JSS2">JSS 2</option>
+            <option value="JSS3">JSS 3</option>
+            <option value="SS1">SS 1</option>
+            <option value="SS2">SS 2</option>
+            <option value="SS3">SS 3</option>
+        </select>
+
+        <label>Age:</label>
+        <input type="number" name="age"
+               placeholder="e.g. 15"
+               min="5" max="25" required>
+
+        <label>Gender:</label>
+        <select name="gender" required>
+            <option value="">-- Select Gender --</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+        </select>
+
+        <button class="btn btn-green"
+                type="submit"
+                style="width:100%; padding:12px;">
+            ➕ Add Student
+        </button>
+    </form>
+
+    <br>
+    <a href="/students" class="btn btn-red">
+        ⬅ Back to Students
+    </a>
+</div>
+
+{% endblock %}
