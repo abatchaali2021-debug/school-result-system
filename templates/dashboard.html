@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>📊 Dashboard</h2>
+
+<div class="stats-grid">
+    <div class="stat-card">
+        <p>Total Students</p>
+        <h1>{{ total_students }}</h1>
+        <a href="/students" style="color:white;">
+            View All →
+        </a>
+    </div>
+    <div class="stat-card">
+        <p>Total Subjects</p>
+        <h1>{{ total_subjects }}</h1>
+        <a href="/subjects" style="color:white;">
+            View All →
+        </a>
+    </div>
+    <div class="stat-card">
+        <p>Total Results</p>
+        <h1>{{ total_results }}</h1>
+        <a href="/results" style="color:white;">
+            View All →
+        </a>
+    </div>
+</div>
+
+<div class="card">
+    <h3>Quick Actions</h3>
+    <a href="/add-student" class="btn btn-green"
+       style="margin-right:10px;">
+        ➕ Add Student
+    </a>
+    <a href="/subjects" class="btn btn-orange"
+       style="margin-right:10px;">
+        📚 Add Subject
+    </a>
+    <a href="/results" class="btn">
+        📝 Enter Results
+    </a>
+</div>
+
+{% endblock %}
